@@ -1,0 +1,13 @@
+
+    ███      ▄██████▄    ▄▄▄▄███▄▄▄▄   
+▀█████████▄ ███    ███ ▄██▀▀▀███▀▀▀██▄ 
+   ▀███▀▀██ ███    ███ ███   ███   ███ 
+    ███   ▀ ███    ███ ███   ███   ███ 
+    ███     ███    ███ ███   ███   ███ 
+    ███     ███    ███ ███   ███   ███ 
+    ███     ███    ███ ███   ███   ███ 
+   ▄████▀    ▀██████▀   ▀█   ███   █▀  
+                                      
+Active Profile: ${spring.profiles.active}
+Powered by Spring Boot: ${spring-boot.version}
+Running at: ${custom.protocol:http}://${server.address:localhost}:${server.port:8080}

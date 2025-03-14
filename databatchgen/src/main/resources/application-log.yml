@@ -1,0 +1,30 @@
+springdoc:
+  default-produces-media-type: application/json
+  default-consumes-media-type: application/json
+  api-docs:
+    enabled: ${SWAGGER_ENABLE:false}
+  swagger-ui:
+    enabled: ${SWAGGER_ENABLE:false}
+    path: ${SWAGGER_URL:/docs}
+
+logging:
+  level:
+    root: info
+    org:
+      springframework: warn
+      boot: error
+      data:
+        redis: debug
+  pattern:
+    console: '%n %d{HH:mm:ss} | %highlight(%-5level) | %cyan(%logger{30}) | %msg'
+
+spring:
+  output:
+    ansi:
+      enabled: always
+  aop:
+    auto: true # When you don't need logging.
+  banner:
+    location: classpath:banner.txt
+  main:
+    banner-mode: console

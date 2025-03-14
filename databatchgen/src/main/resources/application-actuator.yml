@@ -1,0 +1,28 @@
+management:
+  endpoints:
+    web:
+      base-path: ${ACTUATOR:/actuator}
+      exposure:
+        include: "health,info,metrics,env"
+    access:
+      default: read-only
+  endpoint:
+    info:
+      access: read-only
+    env:
+      show-values: when-authorized
+    health:
+      show-details: when-authorized
+    metrics:
+      access: read-only
+
+info:
+  app:
+    name: ${spring.application.name}
+    version: ${project.version}
+    java:
+      version: ${java.version}
+    os:
+      name: ${os.name}
+      arch: ${os.arch}
+      version: ${os.version}

@@ -1,0 +1,6 @@
+application:
+  datagen:
+    batchSize: ${BATCH_SIZE:10000}
+  security:
+    user: ${SECURITY_USER}
+    password: ${SECURITY_PASSWORD}

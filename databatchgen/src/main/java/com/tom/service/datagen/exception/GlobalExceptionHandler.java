@@ -20,15 +20,9 @@ public class GlobalExceptionHandler {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(((CustomGlobalException) exp).getMsg());
 	}
 
-	@ExceptionHandler({ })
-	public ResponseEntity<String> handleBadRequestException(RuntimeException exp) {
-		log.error("Error during data processing", exp);
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(((CustomGlobalException) exp).getMsg());
-	}
-	
 	@ExceptionHandler({ ClientDisconnectedException.class })
 	public ResponseEntity<byte[]> handleDisconnectionException(RuntimeException exp) {
-		log.error("Error during data processing", exp);
+		log.error("Error, user disconnected", exp);
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(((CustomGlobalException) exp).getMsg().getBytes());
 	}
 	

@@ -20,9 +20,15 @@ import io.swagger.v3.oas.annotations.servers.Server;
 	    ),
 	    servers = {
 	        @Server(url = "http://localhost:8000", description = "Servidor de Desenvolvimento"),
-	        @Server(url = "http://localhost:8005", description = "Servidor de Produção")
 	    }
 	)
 public class SwaggerConfig {
+	
+	
+	
+	
+	
+	
+	
 	
 }

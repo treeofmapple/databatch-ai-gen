@@ -99,41 +99,6 @@ public class EmployeeController extends ConnectionUtil {
 		}
 
 	}
-
-	@PostMapping(value = "/employee/batch/medium", produces = MediaType.TEXT_PLAIN_VALUE)
-	public ResponseEntity<byte[]> dataMediumGeneration(HttpServletRequest request) {
-		final int quantity = 1000;
-		log.info("Started to generate: {}, employee's", quantity);
-
-		try {
-			if (isClientConnected(request)) {
-				throw new ClientDisconnectedException("Client disconnected during data generation");
-			}
-			byte[] csvData = service.generateEmployeeData(quantity);
-			log.info("Finished to generate: {}, employee's", quantity);
-			return buildCsvResponse(csvData, "employees.csv");
-		} catch (Exception e) {
-			throw new InternalException("System internal Error");
-		}
-	}
-
-	@PostMapping(value = "/employee/batch/big", produces = MediaType.TEXT_PLAIN_VALUE)
-	public ResponseEntity<byte[]> dataBigGeneration(HttpServletRequest request) {
-		final int quantity = 10000;
-		log.info("Started to generate: {}, employee's", quantity);
-
-		try {
-			if (isClientConnected(request)) {
-				throw new ClientDisconnectedException("Client disconnected during data generation");
-			}
-			byte[] csvData = service.generateEmployeeData(quantity);
-			log.info("Finished to generate: {}, employee's", quantity);
-			return buildCsvResponse(csvData, "employees.csv");
-		} catch (Exception e) {
-			throw new InternalException("System internal Error");
-		}
-
-	}
 	
 	@Operation(summary = "Insert Employee Attributes", description = "Receives a JSON request to generate employee data.")
 	@PostMapping(value = "/insert", produces = MediaType.APPLICATION_JSON_VALUE)

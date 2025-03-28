@@ -1,12 +1,3 @@
-springdoc:
-  default-produces-media-type: application/json
-  default-consumes-media-type: application/json
-  api-docs:
-    enabled: ${SWAGGER_ENABLE:false}
-  swagger-ui:
-    enabled: ${SWAGGER_ENABLE:false}
-    path: ${SWAGGER_URL:/docs}
-
 logging:
   level:
     root: info

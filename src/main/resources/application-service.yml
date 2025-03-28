@@ -1,6 +1,15 @@
+springdoc:
+  default-produces-media-type: application/json
+  default-consumes-media-type: application/json
+  api-docs:
+    enabled: ${SWAGGER_ENABLE:false}
+  swagger-ui:
+    enabled: ${SWAGGER_ENABLE:false}
+    path: ${SWAGGER_URL:/docs}
+
 application:
   datagen:
     batchSize: ${BATCH_SIZE:10000}
   security:
-    user: ${SECURITY_USER}
-    password: ${SECURITY_PASSWORD}
+    user: ${SECURITY_USER:admin}
+    password: ${SECURITY_PASSWORD:password}

@@ -6,11 +6,9 @@ import java.util.Map;
 import org.springframework.boot.actuate.info.Info;
 import org.springframework.boot.actuate.info.InfoContributor;
 import org.springframework.core.env.Environment;
-import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
 
-@Component
 @RequiredArgsConstructor
 public class SystemInfoContributor implements InfoContributor {
 

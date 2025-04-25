@@ -7,3 +7,7 @@ spring:
 server:
   port: ${SERVER_PORT:8000}
   address: ${SERVER_ADDRESS:localhost}
+  ssl:
+    enabled: ${SSL_CHECK:false}
+  servlet:
+    context-path: /api

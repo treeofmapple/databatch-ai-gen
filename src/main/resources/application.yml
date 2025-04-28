@@ -1,12 +1,11 @@
 spring:
   profiles:
-    active: log, actuator, service
+    active: console, actuator, service
   application:
       name: databatchgen
 
 server:
   port: ${SERVER_PORT:8000}
-  address: ${SERVER_ADDRESS:localhost}
   ssl:
     enabled: ${SSL_CHECK:false}
   servlet:

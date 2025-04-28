@@ -6,14 +6,13 @@ import lombok.EqualsAndHashCode;
 
 @SuppressWarnings("serial")
 @EqualsAndHashCode(callSuper = true)
-public class ClientDisconnectedException extends CustomGlobalException {
+public class BadRequestException extends CustomGlobalException{
 
-	public ClientDisconnectedException(String msg) {
+	public BadRequestException(String msg) {
 		super(msg);
 	}
-
-	public ClientDisconnectedException(String msg, Throwable cause) {
+	
+	public BadRequestException(String msg, Throwable cause) {
 		super(msg, cause);
 	}
-
 }

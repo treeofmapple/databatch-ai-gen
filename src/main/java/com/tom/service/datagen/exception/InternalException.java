@@ -1,13 +1,18 @@
 package com.tom.service.datagen.exception;
 
-import lombok.Data;
+import com.tom.service.datagen.exception.global.CustomGlobalException;
+
 import lombok.EqualsAndHashCode;
 
 @SuppressWarnings("serial")
 @EqualsAndHashCode(callSuper = true)
-@Data
 public class InternalException extends CustomGlobalException {
-
-	private final String msg;
 	
+	public InternalException(String msg) {
+		super(msg);
+	}
+
+	public InternalException(String msg, Throwable cause) {
+		super(msg, cause);
+	}
 }

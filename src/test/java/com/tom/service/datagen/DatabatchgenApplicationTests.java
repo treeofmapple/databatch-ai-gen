@@ -6,8 +6,4 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class DatabatchgenApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
-
 }

@@ -15,7 +15,5 @@ spring:
       enabled: always
   aop:
     auto: true # When you don't need logging.
-  banner:
-    location: classpath:banner/banner.txt
   main:
     banner-mode: console

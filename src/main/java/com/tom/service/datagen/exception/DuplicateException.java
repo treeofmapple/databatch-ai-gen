@@ -6,14 +6,14 @@ import lombok.EqualsAndHashCode;
 
 @SuppressWarnings("serial")
 @EqualsAndHashCode(callSuper = true)
-public class ClientDisconnectedException extends CustomGlobalException {
-
-	public ClientDisconnectedException(String msg) {
+public class DuplicateException extends CustomGlobalException {
+	
+	public DuplicateException(String msg) {
 		super(msg);
 	}
-
-	public ClientDisconnectedException(String msg, Throwable cause) {
+	
+	public DuplicateException(String msg, Throwable cause) {
 		super(msg, cause);
 	}
-
+	
 }

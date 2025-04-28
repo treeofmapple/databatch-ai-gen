@@ -2,15 +2,14 @@ package com.tom.service.datagen.common;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
+import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 
 import com.tom.service.datagen.model.Employee;
-import com.tom.service.datagen.model.enums.Gender;
 
 @Component
 public class Operations {
@@ -50,46 +49,24 @@ public class Operations {
 		}
 	}
 	
-	private String buildCsvRow(Employee emp) {
-		return String.format("%s,%s,%s,%s,%s,%d,%s,%s,%s,%.2f,%d,%s,%s,%s",
-				nullSafe(emp.getId()),
-				nullSafe(emp.getFirstName()),
-				nullSafe(emp.getLastName()),
-				nullSafe(emp.getEmail()),
-				nullSafe(emp.getPhoneNumber()),
-				nullSafe(emp.getAge()),
-				nullSafe(emp.getGender()),
-				nullSafe(emp.getDepartment()),
-				nullSafe(emp.getJobTitle()),
-				nullSafe(emp.getSalary()),
-				nullSafe(emp.getYearsOfExperience()),
-				nullSafe(emp.getAddress()),
-				nullSafe(emp.getHireDate()),
-				nullSafe(emp.getTerminationDate())
-		);
-	}
+    private String buildCsvRow(Employee emp) {
+        StringBuilder row = new StringBuilder();
 
-	private String nullSafe(double value) {
-		return value != 0.0 ? String.format("%.2f", value) : "";
-	}
-	
-	private String nullSafe(int value) {
-	    return value != 0 ? Integer.toString(value) : "";
-	}
-	
-	private String nullSafe(Long value) {
-		return value != null ? value.toString() : "";
-	}
+        Field[] fields = Employee.class.getDeclaredFields();
+        for (Field field : fields) {
+            field.setAccessible(true);
+            try {
+                Object value = field.get(emp);
+                row.append(value).append(",");
+            } catch (IllegalAccessException e) {
+                ServiceLogger.error("Error accessing field: " + field.getName(), e);
+                row.append(",");
+            }
+        }
+        if (row.length() > 0) {
+            row.setLength(row.length() - 1);
+        }
+        return row.toString();
+    }
 
-	private String nullSafe(String value) {
-		return value != null ? value : "";
-	}
-
-	private String nullSafe(Gender gender) {
-		return gender != null ? gender.name() : "";
-	}
-
-	private String nullSafe(LocalDate date) {
-		return date != null ? date.toString() : "";
-	}
 }

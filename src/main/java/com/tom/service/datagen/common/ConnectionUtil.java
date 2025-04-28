@@ -3,10 +3,12 @@ package com.tom.service.datagen.common;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 
 import jakarta.servlet.http.HttpServletRequest;
-
+@Component
 public class ConnectionUtil {
+	
 	public boolean isClientConnected(HttpServletRequest request) {
 		try {
 			if (!request.isAsyncStarted() && request.getInputStream().available() == 0) {

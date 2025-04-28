@@ -6,12 +6,15 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.springframework.stereotype.Component;
+
 import com.tom.service.datagen.dto.RandomRequest;
 import com.tom.service.datagen.model.Employee;
 import com.tom.service.datagen.model.enums.Gender;
 
 import net.datafaker.Faker;
 
+@Component
 public class GenerateData {
 
     private final Set<String> usedEmails = ConcurrentHashMap.newKeySet();
@@ -24,9 +27,7 @@ public class GenerateData {
     
 	public Employee generateSingleEmployee() {
 		Employee emp = new Employee();
-
 		emp.setId(atomicCounter.incrementAndGet());
-
 		boolean isMale = ThreadLocalRandom.current().nextInt(100) < gender;
 		emp.setGender(isMale ? Gender.MALE : Gender.FEMALE);
 
@@ -37,6 +38,9 @@ public class GenerateData {
 			emp.setPhoneNumber(faker.phoneNumber().cellPhone());
 		} while (usedEmails.contains(emp.getEmail()) || usedPhoneNumbers.contains(emp.getPhoneNumber()));
 
+	    usedEmails.add(emp.getEmail());
+	    usedPhoneNumbers.add(emp.getPhoneNumber());
+		
 		emp.setLastName(faker.name().lastName());
 		emp.setDepartment(faker.company().industry());
 		emp.setJobTitle(faker.job().title());
@@ -52,10 +56,7 @@ public class GenerateData {
 
 		LocalDate hireDate = LocalDate.now().minusDays(getRandomNumber(1, 3650));
 		emp.setHireDate(hireDate);
-
-		boolean isTerminated = ThreadLocalRandom.current().nextInt(100) < 20;
-		emp.setTerminationDate(isTerminated ? hireDate.plusDays(15) : null);
-
+	    emp.setTerminationDate(ThreadLocalRandom.current().nextInt(100) < 20 ? hireDate.plusDays(15) : null);
 		return emp;
 	}
 	

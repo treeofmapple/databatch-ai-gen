@@ -40,7 +40,7 @@ public class WebSecurityConfig {
     			exception.authenticationEntryPoint(unauthorizedHandler))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(whiteListUrls).permitAll()
-                .anyRequest().denyAll()
+                .anyRequest().authenticated()
             )
             .httpBasic(Customizer.withDefaults())
             .csrf(csrf -> csrf.disable());

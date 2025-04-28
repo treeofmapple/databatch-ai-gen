@@ -18,7 +18,7 @@ public class WhitelistLoader {
         List<String> paths = new ArrayList<>();
         var resolver = new PathMatchingResourcePatternResolver();
         Resource[] resources = resolver.getResources("classpath:/whitelist/*.txt");
-
+        
         for (Resource resource : resources) {
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream()))) {
                 paths.addAll(reader.lines()

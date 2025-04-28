@@ -1,1 +1,1 @@
-org.springframework.boot.SpringApplicationRunListener=com.tom.aws.awstest.config.BannerConfig
+org.springframework.boot.SpringApplicationRunListener=com.tom.service.datagen.config.BannerConfig

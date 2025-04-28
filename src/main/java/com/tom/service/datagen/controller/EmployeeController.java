@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tom.service.datagen.common.ConnectionUtil;
 import com.tom.service.datagen.common.GenerateData;
-import com.tom.service.datagen.common.ServiceLogger;
 import com.tom.service.datagen.dto.RandomRequest;
 import com.tom.service.datagen.service.EmployeeService;
 
@@ -21,19 +20,18 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-@Slf4j
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/v1")
 @RequiredArgsConstructor
 @Tag(name = "GenerateEmployeeData", description = "Batch of employee Data")
-public class EmployeeController extends ConnectionUtil {
+public class EmployeeController {
 
 	private final EmployeeService service;
 	private final GenerateData data;
+	private final ConnectionUtil util;
 
 	@PostMapping(value = "/employee/progress/{quantity}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
 	public Flux<String> dataGenerationWithProgress(@PathVariable int quantity) {
@@ -47,12 +45,11 @@ public class EmployeeController extends ConnectionUtil {
 		if (csvData == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("File not found or expired.".getBytes());
 		}
-		return buildCsvResponse(csvData, "employees.csv");
+		return util.buildCsvResponse(csvData, "employees.csv");
 	}
 
 	@DeleteMapping("/employee/delete/{fileId}")
 	public ResponseEntity<String> deleteEmployeeData(@PathVariable String fileId) {
-		ServiceLogger.info("Deleting Data from Storage");
 		service.deleteCsvFromTempStorage(fileId);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Deleted: " + fileId);
 	}
@@ -60,15 +57,14 @@ public class EmployeeController extends ConnectionUtil {
 	@PostMapping(value = "/employee/{quantity}", produces = MediaType.TEXT_PLAIN_VALUE)
 	public ResponseEntity<byte[]> dataGeneration(@PathVariable int quantity, HttpServletRequest request) {
 		byte[] csvData = service.generateEmployeeData(quantity, request);
-		return buildCsvResponse(csvData, "employees.csv");
-
+		return util.buildCsvResponse(csvData, "employees.csv");
 	}
 
 	@PostMapping(value = "/employee/batch/small", produces = MediaType.TEXT_PLAIN_VALUE)
 	public ResponseEntity<byte[]> dataSmallGeneration(HttpServletRequest request) {
 		final int quantity = 100;
 		byte[] csvData = service.generateEmployeeData(quantity, request);
-		return buildCsvResponse(csvData, "employees.csv");
+		return util.buildCsvResponse(csvData, "employees.csv");
 	}
 
 	@PostMapping(value = "/insert", produces = MediaType.APPLICATION_JSON_VALUE)
